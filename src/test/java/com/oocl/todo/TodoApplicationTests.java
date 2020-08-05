@@ -1,10 +1,10 @@
-package com.thoughtworks.springbootemployee;
+package com.oocl.todo;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class SpringBootEmployeeApplicationTests {
+class TodoApplicationTests {
 
 	@Test
 	void contextLoads() {
