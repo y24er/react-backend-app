@@ -100,6 +100,6 @@ public class TodoServiceImplTest {
         //when
         Throwable exception = assertThrows(NotFoundTodoException.class, () -> todoService.updateTodo(100, new Todo()));
         //then
-        assertEquals("not found this todo!", exception.getMessage());
+        assertEquals("Not found this todo!", exception.getMessage());
     }
 }

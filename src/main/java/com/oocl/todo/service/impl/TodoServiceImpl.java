@@ -1,5 +1,6 @@
 package com.oocl.todo.service.impl;
 
+import com.oocl.todo.exception.NotFoundTodoException;
 import com.oocl.todo.model.Todo;
 import com.oocl.todo.repository.TodoRepository;
 import com.oocl.todo.service.TodoService;
@@ -25,7 +26,7 @@ public class TodoServiceImpl implements TodoService {
 
     @Override
     public Todo updateTodo(Integer id, Todo todo) {
-        Todo oldTodo = todoRepository.findById(id).get();
+        Todo oldTodo = todoRepository.findById(id).orElseThrow(NotFoundTodoException::new);
         if (todo.getContent() != null) {
             oldTodo.setContent(todo.getContent());
         }
