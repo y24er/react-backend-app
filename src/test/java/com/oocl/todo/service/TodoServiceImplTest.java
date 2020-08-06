@@ -1,5 +1,6 @@
 package com.oocl.todo.service;
 
+import com.oocl.todo.exception.NotFoundTodoException;
 import com.oocl.todo.model.Todo;
 import com.oocl.todo.repository.TodoRepository;
 import com.oocl.todo.service.impl.TodoServiceImpl;
@@ -13,6 +14,7 @@ import java.util.Optional;
 
 import static java.util.Arrays.asList;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.Mockito.when;
 
 @SpringBootTest
@@ -91,4 +93,13 @@ public class TodoServiceImplTest {
         assertEquals(true, updatedTodo.getStatus());
     }
 
+    @Test
+    void should_throw_not_found_todo_when_update_todo_given_not_exist_id() {
+        //given
+        when(todoRepository.findById(100)).thenReturn(Optional.empty());
+        //when
+        Throwable exception = assertThrows(NotFoundTodoException.class, () -> todoService.updateTodo(100, new Todo()));
+        //then
+        assertEquals("not found this todo!", exception.getMessage());
+    }
 }
