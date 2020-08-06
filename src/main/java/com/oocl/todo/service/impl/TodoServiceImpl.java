@@ -26,7 +26,9 @@ public class TodoServiceImpl implements TodoService {
     @Override
     public Todo updateTodo(Integer id, Todo todo) {
         Todo oldTodo = todoRepository.findById(id).get();
-        oldTodo.setContent(todo.getContent());
+        if (todo.getContent() != null) {
+            oldTodo.setContent(todo.getContent());
+        }
         if (todo.getStatus() != null) {
             oldTodo.setStatus(todo.getStatus());
         }

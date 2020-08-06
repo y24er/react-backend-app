@@ -75,4 +75,20 @@ public class TodoServiceImplTest {
         assertEquals("eating....", updatedTodo.getContent());
         assertEquals(false, updatedTodo.getStatus());
     }
+
+    @Test
+    void should_return_updated_todo_when_update_todo_given_partial_updated_info_status() {
+        Todo todo = new Todo(2, "eating", false);
+        when(todoRepository.findById(2)).thenReturn(Optional.of(todo));
+        Todo updatedInfo = new Todo();
+        updatedInfo.setStatus(true);
+        when(todoRepository.save(todo)).thenReturn(new Todo(2, "eating", true));
+        //when
+        Todo updatedTodo = todoService.updateTodo(2, updatedInfo);
+        //then
+        assertEquals(2, updatedTodo.getId());
+        assertEquals("eating", updatedTodo.getContent());
+        assertEquals(true, updatedTodo.getStatus());
+    }
+
 }
