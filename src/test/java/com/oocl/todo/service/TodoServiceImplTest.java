@@ -48,11 +48,11 @@ public class TodoServiceImplTest {
     void should_return_todo_when_update_todo_given_updated_info() {
         //given
         Todo todo = new Todo(2, "eating", false);
+        when(todoRepository.findById(2)).thenReturn(Optional.of(todo));
         Todo updatedInfo = new Todo();
         updatedInfo.setContent("eating....");
         updatedInfo.setStatus(true);
-        when(todoRepository.findById(2)).thenReturn(Optional.of(todo));
-        when(todoRepository.save(todo)).thenReturn(new Todo(2, "eating", true));
+        when(todoRepository.save(todo)).thenReturn(new Todo(2, "eating....", true));
         //when
         Todo updatedTodo = todoService.updateTodo(2, updatedInfo);
         //then
