@@ -62,7 +62,7 @@ public class TodoServiceImplTest {
     }
 
     @Test
-    void should_return_updated_todo_when_update_todo_given_partial_updated_info() {
+    void should_return_updated_todo_when_update_todo_given_partial_updated_info_content() {
         Todo todo = new Todo(2, "eating", false);
         when(todoRepository.findById(2)).thenReturn(Optional.of(todo));
         Todo updatedInfo = new Todo();

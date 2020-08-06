@@ -27,7 +27,9 @@ public class TodoServiceImpl implements TodoService {
     public Todo updateTodo(Integer id, Todo todo) {
         Todo oldTodo = todoRepository.findById(id).get();
         oldTodo.setContent(todo.getContent());
-        oldTodo.setStatus(todo.getStatus());
+        if (todo.getStatus() != null) {
+            oldTodo.setStatus(todo.getStatus());
+        }
         return todoRepository.save(oldTodo);
     }
 }
