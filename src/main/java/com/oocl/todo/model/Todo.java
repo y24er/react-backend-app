@@ -42,4 +42,8 @@ public class Todo {
     public Integer getId() {
         return id;
     }
+
+    public void setContent(String content) {
+        this.content = content;
+    }
 }

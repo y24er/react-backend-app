@@ -9,6 +9,7 @@ import org.mockito.Mock;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import java.util.List;
+import java.util.Optional;
 
 import static java.util.Arrays.asList;
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -48,13 +49,15 @@ public class TodoServiceImplTest {
         //given
         Todo todo = new Todo(2, "eating", false);
         Todo updatedInfo = new Todo();
+        updatedInfo.setContent("eating....");
         updatedInfo.setStatus(true);
+        when(todoRepository.findById(2)).thenReturn(Optional.of(todo));
         when(todoRepository.save(todo)).thenReturn(new Todo(2, "eating", true));
         //when
         Todo updatedTodo = todoService.updateTodo(2, updatedInfo);
         //then
-        assertEquals(1, updatedTodo.getId());
-        assertEquals("eating", updatedTodo.getContent());
+        assertEquals(2, updatedTodo.getId());
+        assertEquals("eating....", updatedTodo.getContent());
         assertEquals(true, updatedTodo.getStatus());
     }
 }
