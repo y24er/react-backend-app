@@ -20,6 +20,6 @@ public class TodoServiceImpl implements TodoService {
     }
 
     public Todo addTodo(Todo todo) {
-        return null;
+        return todoRepository.save(todo);
     }
 }
