@@ -109,9 +109,22 @@ public class TodoServiceImplTest {
     void should_return_nothing_when_delete_todo_given_id() {
         //given
         Integer id = 2;
+        when(todoRepository.findById(id)).thenReturn(Optional.of(new Todo()));
         //when
         todoService.deleteTodo(id);
         //then
         verify(todoRepository, times(1)).deleteById(id);
+    }
+
+    @Test
+    void should_throw_not_found_todo_exception_when_delete_todo_given_not_exist_id() {
+        //given
+        Integer id = 100;
+        //when
+        when(todoRepository.findById(id)).thenReturn(Optional.empty());
+        Throwable exception = assertThrows(NotFoundTodoException.class, () -> todoService.deleteTodo(id));
+        //then
+        assertEquals("Not found this todo!", exception.getMessage());
+        verify(todoRepository, times(0)).deleteById(id);
     }
 }
