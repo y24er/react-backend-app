@@ -45,7 +45,7 @@ public class TodoServiceImplTest {
     }
 
     @Test
-    void should_return_todo_when_update_todo_given_updated_info() {
+    void should_return_updated_todo_when_update_todo_given_updated_info() {
         //given
         Todo todo = new Todo(2, "eating", false);
         when(todoRepository.findById(2)).thenReturn(Optional.of(todo));
@@ -59,5 +59,20 @@ public class TodoServiceImplTest {
         assertEquals(2, updatedTodo.getId());
         assertEquals("eating....", updatedTodo.getContent());
         assertEquals(true, updatedTodo.getStatus());
+    }
+
+    @Test
+    void should_return_updated_todo_when_update_todo_given_partial_updated_info() {
+        Todo todo = new Todo(2, "eating", false);
+        when(todoRepository.findById(2)).thenReturn(Optional.of(todo));
+        Todo updatedInfo = new Todo();
+        updatedInfo.setContent("eating....");
+        when(todoRepository.save(todo)).thenReturn(new Todo(2, "eating....", false));
+        //when
+        Todo updatedTodo = todoService.updateTodo(2, updatedInfo);
+        //then
+        assertEquals(2, updatedTodo.getId());
+        assertEquals("eating....", updatedTodo.getContent());
+        assertEquals(false, updatedTodo.getStatus());
     }
 }
