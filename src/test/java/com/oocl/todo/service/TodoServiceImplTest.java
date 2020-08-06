@@ -15,6 +15,8 @@ import java.util.Optional;
 import static java.util.Arrays.asList;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 @SpringBootTest
@@ -101,5 +103,15 @@ public class TodoServiceImplTest {
         Throwable exception = assertThrows(NotFoundTodoException.class, () -> todoService.updateTodo(100, new Todo()));
         //then
         assertEquals("Not found this todo!", exception.getMessage());
+    }
+
+    @Test
+    void should_return_nothing_when_delete_todo_given_id() {
+        //given
+        Integer id = 2;
+        //when
+        todoService.deleteTodo(id);
+        //then
+        verify(todoRepository, times(1)).deleteById(id);
     }
 }
