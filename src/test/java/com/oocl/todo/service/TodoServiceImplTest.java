@@ -42,4 +42,19 @@ public class TodoServiceImplTest {
         assertEquals("finished work", savedTodo.getContent());
         assertEquals(false, savedTodo.getStatus());
     }
+
+    @Test
+    void should_return_todo_when_update_todo_given_updated_info() {
+        //given
+        Todo todo = new Todo(2, "eating", false);
+        Todo updatedInfo = new Todo();
+        updatedInfo.setStatus(true);
+        when(todoRepository.save(todo)).thenReturn(new Todo(2, "eating", true));
+        //when
+        Todo updatedTodo = todoService.updateTodo(2, updatedInfo);
+        //then
+        assertEquals(1, updatedTodo.getId());
+        assertEquals("eating", updatedTodo.getContent());
+        assertEquals(true, updatedTodo.getStatus());
+    }
 }

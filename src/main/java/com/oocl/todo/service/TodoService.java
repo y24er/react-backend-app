@@ -7,5 +7,8 @@ import java.util.List;
 
 public interface TodoService {
     List<Todo> getTodoList();
+
     Todo addTodo(Todo todo);
+
+    Todo updateTodo(Integer id, Todo todo);
 }

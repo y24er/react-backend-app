@@ -34,4 +34,12 @@ public class Todo {
     public Boolean getStatus() {
         return status;
     }
+
+    public void setStatus(boolean status) {
+        this.status = status;
+    }
+
+    public Integer getId() {
+        return id;
+    }
 }
