@@ -16,32 +16,22 @@ public class Todo {
     public Todo() {
     }
 
-    public Todo(String content, Boolean status) {
+    public Todo(String content) {
+        this.content = content;
+        this.status = false;
+    }
+
+    public Todo(Integer id, String content, Boolean status) {
+        this.id = id;
         this.content = content;
         this.status = status;
-    }
-
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
     }
 
     public String getContent() {
         return content;
     }
 
-    public void setContent(String content) {
-        this.content = content;
-    }
-
     public Boolean getStatus() {
         return status;
-    }
-
-    public void setStatus(Boolean status) {
-        this.status = status;
     }
 }

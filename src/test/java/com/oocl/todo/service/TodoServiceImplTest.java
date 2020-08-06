@@ -1,4 +1,4 @@
-package com.oocl.todo.serviceTest;
+package com.oocl.todo.service;
 
 import com.oocl.todo.model.Todo;
 import com.oocl.todo.repository.TodoRepository;
@@ -24,11 +24,22 @@ public class TodoServiceImplTest {
     @Test
     void should_return_todo_list_when_get_all_todo_given_nothing() {
         //given
-        when(todoRepository.findAll()).thenReturn(asList(new Todo("finished work", false)));
+        when(todoRepository.findAll()).thenReturn(asList(new Todo(1, "finished work", false)));
         //when
         List<Todo> todoList = todoService.getTodoList();
         //then
         assertEquals(1, todoList.size());
+    }
 
+    @Test
+    void should_return_todo_when_add_todo_given_todo() {
+        //given
+        Todo todo = new Todo("finished work");
+        when(todoRepository.save(todo)).thenReturn(todo);
+        //when
+        Todo savedTodo = todoService.addTodo(todo);
+        //then
+        assertEquals("finished work", savedTodo.getContent());
+        assertEquals(false, savedTodo.getStatus());
     }
 }

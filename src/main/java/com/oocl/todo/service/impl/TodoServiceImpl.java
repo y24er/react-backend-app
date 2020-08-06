@@ -18,4 +18,8 @@ public class TodoServiceImpl implements TodoService {
     public List<Todo> getTodoList() {
         return todoRepository.findAll();
     }
+
+    public Todo addTodo(Todo todo) {
+        return null;
+    }
 }
