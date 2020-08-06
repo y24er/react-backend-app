@@ -8,8 +8,8 @@ plugins {
 }
 
 repositories {
-//    mavenCentral()
-    maven{ url 'http://maven.aliyun.com/nexus/content/groups/public'}
+    mavenCentral()
+    maven { url 'http://maven.aliyun.com/nexus/content/groups/public' }
 }
 
 jacocoTestReport {
@@ -20,6 +20,7 @@ jacocoTestReport {
 
 
 dependencies {
+    compile 'com.alibaba:fastjson:1.2.5'
     compile group: 'org.flywaydb', name: 'flyway-core', version: '6.5.3'
     implementation 'org.springframework.boot:spring-boot-starter-data-jpa:2.3.1.RELEASE'
     implementation 'org.springframework.boot:spring-boot-starter-web:2.3.1.RELEASE'
