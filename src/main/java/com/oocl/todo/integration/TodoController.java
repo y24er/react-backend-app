@@ -1,5 +1,8 @@
-package com.oocl.todo.controller;
+package com.oocl.todo.integration;
 
+import com.oocl.todo.dto.TodoRequestDTO;
+import com.oocl.todo.dto.TodoResponseDTO;
+import com.oocl.todo.mapper.TodoMapper;
 import com.oocl.todo.model.Todo;
 import com.oocl.todo.service.TodoService;
 import org.springframework.http.HttpStatus;
@@ -25,10 +28,12 @@ import static org.springframework.web.bind.annotation.RequestMethod.PUT;
 @RequestMapping("/todos")
 @CrossOrigin(origins = "http://localhost:3000", methods = {GET, POST, PUT, DELETE})
 public class TodoController {
+    private final TodoMapper todoMapper;
     private final TodoService todoService;
 
-    public TodoController(TodoService todoService) {
+    public TodoController(TodoService todoService, TodoMapper todoMapper) {
         this.todoService = todoService;
+        this.todoMapper = todoMapper;
     }
 
     @GetMapping
@@ -39,14 +44,20 @@ public class TodoController {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public Todo addTodo(@RequestBody Todo todo) {
-        return todoService.addTodo(todo);
+    public TodoResponseDTO addTodo(@RequestBody TodoRequestDTO todoRequestDTO) {
+        Todo todo = todoMapper.toTodo(todoRequestDTO);
+        Todo savedTodo = todoService.addTodo(todo);
+        TodoResponseDTO todoResponseDTO = todoMapper.toTodoResponseDTO(savedTodo);
+        return todoResponseDTO;
     }
 
     @PutMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
-    public Todo updateTodo(@PathVariable Integer id, @RequestBody Todo todo) {
-        return todoService.updateTodo(id, todo);
+    public TodoResponseDTO updateTodo(@PathVariable Integer id, @RequestBody TodoRequestDTO todoRequestDTO) {
+        Todo todo = todoMapper.toTodo(todoRequestDTO);
+        Todo savedTodo = todoService.updateTodo(id, todo);
+        TodoResponseDTO todoResponseDTO = todoMapper.toTodoResponseDTO(savedTodo);
+        return todoResponseDTO;
     }
 
     @DeleteMapping("/{id}")
