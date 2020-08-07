@@ -50,7 +50,7 @@ public class TodoIntegration {
         String requestJson = JSONObject.toJSONString(todo);
         //when
         //then
-        String responseString = mockMvc.perform(MockMvcRequestBuilders.post(requestJson))
+        String responseString = mockMvc.perform(MockMvcRequestBuilders.post("/todos").contentType(MediaType.APPLICATION_JSON).content(requestJson))
                 .andExpect(status().isCreated()).andReturn()
                 .getResponse().getContentAsString();
         assertTrue(responseString.contains("sleeping"));

@@ -3,6 +3,7 @@ package com.oocl.todo.integration;
 import com.oocl.todo.model.Todo;
 import com.oocl.todo.service.TodoService;
 import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -15,8 +16,14 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 
+import static org.springframework.web.bind.annotation.RequestMethod.DELETE;
+import static org.springframework.web.bind.annotation.RequestMethod.GET;
+import static org.springframework.web.bind.annotation.RequestMethod.POST;
+import static org.springframework.web.bind.annotation.RequestMethod.PUT;
+
 @RestController
 @RequestMapping("/todos")
+@CrossOrigin(origins = "http://localhost:3000", methods = {GET, POST, PUT, DELETE})
 public class TodoController {
     private final TodoService todoService;
 
