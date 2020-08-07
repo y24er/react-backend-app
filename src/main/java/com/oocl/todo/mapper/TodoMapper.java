@@ -3,7 +3,9 @@ package com.oocl.todo.mapper;
 import com.oocl.todo.dto.TodoRequestDTO;
 import com.oocl.todo.dto.TodoResponseDTO;
 import com.oocl.todo.model.Todo;
+import org.springframework.stereotype.Component;
 
+@Component
 public class TodoMapper {
     public Todo toTodo(TodoRequestDTO todoRequestDTO) {
         Todo todo = new Todo();

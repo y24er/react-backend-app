@@ -4,6 +4,9 @@ public class TodoRequestDTO {
     private String content;
     private Boolean status;
 
+    public TodoRequestDTO() {
+    }
+
     public TodoRequestDTO(String content, Boolean status) {
         this.content = content;
         this.status = status;
