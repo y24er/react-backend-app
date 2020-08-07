@@ -1,6 +1,7 @@
 package com.oocl.todo.mapper;
 
 import com.oocl.todo.dto.TodoRequestDTO;
+import com.oocl.todo.dto.TodoResponseDTO;
 import com.oocl.todo.model.Todo;
 
 public class TodoMapper {
@@ -9,5 +10,9 @@ public class TodoMapper {
         todo.setContent(todoRequestDTO.getContent());
         todo.setStatus(todoRequestDTO.getStatus());
         return todo;
+    }
+
+    public TodoResponseDTO toTodoResponseDTO(Todo todo) {
+        return null;
     }
 }

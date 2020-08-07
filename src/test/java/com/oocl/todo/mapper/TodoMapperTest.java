@@ -1,6 +1,7 @@
 package com.oocl.todo.mapper;
 
 import com.oocl.todo.dto.TodoRequestDTO;
+import com.oocl.todo.dto.TodoResponseDTO;
 import com.oocl.todo.model.Todo;
 import org.junit.jupiter.api.Test;
 
@@ -16,5 +17,17 @@ public class TodoMapperTest {
         Todo todo = todoMapper.toTodo(todoRequestDTO);
         //then
         assertEquals("sleep", todo.getContent());
+    }
+
+    @Test
+    void should_return_todo_response_dto_when_to_todo_response_dto_given_dto() {
+        //given
+        Todo todo = new Todo(1, "sleep", true);
+        TodoMapper todoMapper = new TodoMapper();
+        //when
+        TodoResponseDTO todoResponseDTO = todoMapper.toTodoResponseDTO(todo);
+        //then
+        assertEquals("sleep", todoResponseDTO.getContent());
+        assertEquals(true, todoResponseDTO.getStatus());
     }
 }
