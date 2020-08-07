@@ -13,6 +13,6 @@ public class TodoMapper {
     }
 
     public TodoResponseDTO toTodoResponseDTO(Todo todo) {
-        return null;
+        return new TodoResponseDTO(todo.getId(), todo.getContent(), todo.getStatus());
     }
 }
