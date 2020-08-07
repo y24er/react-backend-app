@@ -1,4 +1,4 @@
-package com.oocl.todo.integration;
+package com.oocl.todo.controller;
 
 import com.oocl.todo.model.Todo;
 import com.oocl.todo.service.TodoService;
