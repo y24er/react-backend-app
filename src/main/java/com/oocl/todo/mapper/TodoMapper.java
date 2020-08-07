@@ -5,6 +5,9 @@ import com.oocl.todo.model.Todo;
 
 public class TodoMapper {
     public Todo toTodo(TodoRequestDTO todoRequestDTO) {
-        return null;
+        Todo todo = new Todo();
+        todo.setContent(todoRequestDTO.getContent());
+        todo.setStatus(todoRequestDTO.getStatus());
+        return todo;
     }
 }
