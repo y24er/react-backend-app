@@ -1,4 +1,4 @@
-package com.oocl.todo.integration;
+package com.oocl.todo.controller;
 
 import com.oocl.todo.dto.TodoRequestDTO;
 import com.oocl.todo.dto.TodoResponseDTO;

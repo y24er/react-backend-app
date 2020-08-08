@@ -1,6 +1,7 @@
 package com.oocl.todo.config;
 
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 import org.springframework.web.filter.CorsFilter;
@@ -19,7 +20,7 @@ public class CorsConfig {
     private CorsConfiguration buildConfig() {
         CorsConfiguration corsConfiguration = new CorsConfiguration();
         corsConfiguration.addAllowedOrigin("http://localhost:3000");
-        corsConfiguration.setAllowedMethods(asList("GET", "POST", "PUT", "DELETE"));
+        corsConfiguration.setAllowedMethods(asList("GET","POST","PUT","DELETE"));
         return corsConfiguration;
     }
 }
