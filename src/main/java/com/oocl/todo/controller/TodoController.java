@@ -28,7 +28,8 @@ import static org.springframework.web.bind.annotation.RequestMethod.PUT;
 @RequestMapping("/todos")
 @CrossOrigin(origins = "http://localhost:3000", methods = {GET, POST, PUT, DELETE})
 public class TodoController {
-    private final TodoMapper todoMapper;
+    //    @Autowired
+    private TodoMapper todoMapper;
     private final TodoService todoService;
 
     public TodoController(TodoService todoService, TodoMapper todoMapper) {
@@ -45,18 +46,18 @@ public class TodoController {
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     public TodoResponseDTO addTodo(@RequestBody TodoRequestDTO todoRequestDTO) {
-        Todo todo = todoMapper.toTodo(todoRequestDTO);
+        Todo todo = todoMapper.todoRequestDTO2Todo(todoRequestDTO);
         Todo savedTodo = todoService.addTodo(todo);
-        TodoResponseDTO todoResponseDTO = todoMapper.toTodoResponseDTO(savedTodo);
+        TodoResponseDTO todoResponseDTO = todoMapper.todo2TodoResponseDTO(savedTodo);
         return todoResponseDTO;
     }
 
     @PutMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
     public TodoResponseDTO updateTodo(@PathVariable Integer id, @RequestBody TodoRequestDTO todoRequestDTO) {
-        Todo todo = todoMapper.toTodo(todoRequestDTO);
+        Todo todo = todoMapper.todoRequestDTO2Todo(todoRequestDTO);
         Todo savedTodo = todoService.updateTodo(id, todo);
-        TodoResponseDTO todoResponseDTO = todoMapper.toTodoResponseDTO(savedTodo);
+        TodoResponseDTO todoResponseDTO = todoMapper.todo2TodoResponseDTO(savedTodo);
         return todoResponseDTO;
     }
 

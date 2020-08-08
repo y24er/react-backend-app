@@ -14,7 +14,7 @@ public class TodoMapperTest {
         TodoRequestDTO todoRequestDTO = new TodoRequestDTO("sleep", false);
         TodoMapper todoMapper = new TodoMapper();
         //when
-        Todo todo = todoMapper.toTodo(todoRequestDTO);
+        Todo todo = todoMapper.todoRequestDTO2Todo(todoRequestDTO);
         //then
         assertEquals("sleep", todo.getContent());
     }
@@ -25,7 +25,7 @@ public class TodoMapperTest {
         Todo todo = new Todo(1, "sleep", true);
         TodoMapper todoMapper = new TodoMapper();
         //when
-        TodoResponseDTO todoResponseDTO = todoMapper.toTodoResponseDTO(todo);
+        TodoResponseDTO todoResponseDTO = todoMapper.todo2TodoResponseDTO(todo);
         //then
         assertEquals("sleep", todoResponseDTO.getContent());
         assertEquals(true, todoResponseDTO.getStatus());

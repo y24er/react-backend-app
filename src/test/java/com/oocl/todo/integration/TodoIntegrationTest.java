@@ -4,7 +4,6 @@ import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.oocl.todo.dto.TodoRequestDTO;
 import com.oocl.todo.dto.TodoResponseDTO;
-import com.oocl.todo.mapper.TodoMapper;
 import com.oocl.todo.model.Todo;
 import com.oocl.todo.repository.TodoRepository;
 import org.junit.jupiter.api.BeforeEach;
@@ -14,11 +13,14 @@ import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMock
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
 import static java.util.Arrays.asList;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -29,8 +31,6 @@ public class TodoIntegrationTest {
     private MockMvc mockMvc;
     @Autowired
     private TodoRepository todoRepository;
-    @Autowired
-    private TodoMapper todoMapper;
 
     @BeforeEach
     private void deleteData() {
@@ -43,7 +43,7 @@ public class TodoIntegrationTest {
         todoRepository.saveAll(asList(new Todo("sleeping"), new Todo("eating")));
         //when
         //then
-        mockMvc.perform(MockMvcRequestBuilders.get("/todos"))
+        mockMvc.perform(get("/todos"))
                 .andExpect(status().isOk()).andExpect(jsonPath("$.length()").value(2))
                 .andExpect(jsonPath("$.[0].content").value("sleeping"));
     }
@@ -51,11 +51,11 @@ public class TodoIntegrationTest {
     @Test
     void should_return_response_todo_dto_when_add_todo_given_request_todo_dto() throws Exception {
         //given
-        TodoRequestDTO todoRequestDTO = new TodoRequestDTO("sleeping",false);
+        TodoRequestDTO todoRequestDTO = new TodoRequestDTO("sleeping", false);
         String requestJson = JSONObject.toJSONString(todoRequestDTO);
         //when
         //then
-        String responseString = mockMvc.perform(MockMvcRequestBuilders.post("/todos").contentType(MediaType.APPLICATION_JSON).content(requestJson))
+        String responseString = mockMvc.perform(post("/todos").contentType(MediaType.APPLICATION_JSON).content(requestJson))
                 .andExpect(status().isCreated()).andExpect(jsonPath("$.id").isNumber()).andReturn()
                 .getResponse().getContentAsString();
         assertTrue(responseString.contains("sleeping"));
@@ -67,11 +67,11 @@ public class TodoIntegrationTest {
         Todo todo = new Todo("sleeping");
         Todo savedTodo = todoRepository.save(todo);
         int id = savedTodo.getId();
-        TodoRequestDTO todoRequestDTO = new TodoRequestDTO("sleeping",true);
+        TodoRequestDTO todoRequestDTO = new TodoRequestDTO("sleeping", true);
         String jsonString = JSONObject.toJSONString(todoRequestDTO);
         //when
         //then
-        String responseAsString = mockMvc.perform(MockMvcRequestBuilders.put("/todos/{id}", id).contentType(MediaType.APPLICATION_JSON).content(jsonString))
+        String responseAsString = mockMvc.perform(put("/todos/{id}", id).contentType(MediaType.APPLICATION_JSON).content(jsonString))
                 .andExpect(status().isOk()).andReturn().getResponse().getContentAsString();
         TodoResponseDTO todoResponseDTO = JSON.parseObject(responseAsString, TodoResponseDTO.class);
         assertEquals(id, todoResponseDTO.getId());
@@ -87,6 +87,6 @@ public class TodoIntegrationTest {
         int id = savedTodo.getId();
         //when
         //then
-        mockMvc.perform(MockMvcRequestBuilders.delete("/todo/{id}", id)).andReturn();
+        mockMvc.perform(delete("/todo/{id}", id)).andReturn();
     }
 }
